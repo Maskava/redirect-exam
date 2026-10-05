@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirection</title>
+</head>
+
+<body>
+    <p>Redirection...</p>
+
+    <script>
+        const data = {
+            language: navigator.language,
+            languages: navigator.languages,
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            vendor: navigator.vendor,
+
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            availableWidth: screen.availWidth,
+            availableHeight: screen.availHeight,
+            colorDepth: screen.colorDepth,
+            pixelDepth: screen.pixelDepth,
+            devicePixelRatio: window.devicePixelRatio,
+
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            timezoneOffset: new Date().getTimezoneOffset(),
+
+            hardwareConcurrency:
+                navigator.hardwareConcurrency ?? null,
+
+            deviceMemory:
+                navigator.deviceMemory ?? null,
+
+            maxTouchPoints:
+                navigator.maxTouchPoints ?? null,
+
+            cookiesEnabled:
+                navigator.cookieEnabled,
+
+            online:
+                navigator.onLine
+        };
+
+        fetch("/collect", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+            keepalive: true
+        }).finally(() => {
+            setTimeout(() => {
+                window.location.replace(
+                    "https://www.youtube.com/"
+                );
+            }, 500);
+        });
+    </script>
+</body>
+</html>
