@@ -10,12 +10,12 @@ app.use(express.static("public"));
 app.post("/collect", (req, res) => {
     const visitor = {
         date: new Date().toISOString(),
-        ip: req.ip,
         userAgent: req.get("user-agent") || null,
         language: req.get("accept-language") || null,
-        referer: req.get("referer") || null,
         browserData: req.body
     };
+
+    console.log("VISITE ENREGISTRÉE :", JSON.stringify(visitor, null, 2));
 
     fs.appendFileSync(
         "visitors.jsonl",
